@@ -1,19 +1,33 @@
+from datetime import datetime
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 
 
 def cover_uploader(instance, filename):
-	filename = f'{instance.title[:15]}-Cover.png'
-	return f'articles/{filename}'
+    filename = f'{instance.title[:15]}-Cover.png'
+    return f'articles/{filename}'
+
+
+class Writer(models.Model):
+    """
+    Writer model [ONLY WRITERS CAN EDIT OR CREATE ARTICLE]
+    """
+    user 					= models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username 
 
 
 class Article(models.Model):
-	title 					= models.CharField(max_length=150)
-	text 					= RichTextField()
-	cover 					= models.ImageField(upload_to=cover_uploader, blank=True, null=True)
-	writer 					= models.ForeignKey(User, on_delete=models.CASCADE)
+    """
+    Articles Model
+    """
+    title 					= models.CharField(max_length=150)
+    text 					= RichTextField()
+    cover 					= models.ImageField(upload_to=cover_uploader, blank=True, null=True)
+    writer 					= models.ForeignKey(Writer, on_delete=models.CASCADE)
+    timestamp 				= models.DateTimeField(default=datetime.now())
 
-
-	def __str__(self):
-		return self.title
+    def __str__(self):
+        return self.title
