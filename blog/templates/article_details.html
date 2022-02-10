@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include 'components/_headerReferences.html' %}
+
+<body>
+{% include 'components/header.html' %}
+<!-- Page Header-->
+<header class="masthead" style="background-image: url({{ object.cover.url }});">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1>{{ object.title }}</h1>
+                    <span class="meta mt-5">
+                                Posted by
+                                <a href="#!">{{ object.writer }}</a>
+                                on August 24, 2021
+                            </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                {{ object.text|safe }}
+            </div>
+        </div>
+    </div>
+</article>
+{% include 'components/footer.html' %}
+{% include 'components/_footerReferences.html' %}
+</body>
+
+</html>
