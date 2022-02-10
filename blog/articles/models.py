@@ -2,6 +2,8 @@ from datetime import datetime
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
+from django.urls import reverse
+from django.utils.text import slugify
 
 
 def cover_uploader(instance, filename):
@@ -31,3 +33,6 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("blog_details", kwargs={"pk": self.id, "slug": slugify(self.title)})
