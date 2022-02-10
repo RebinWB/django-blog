@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'components/_headerReferences.html' %}
+
+<body>
+<div class="container">
+    <div class="row">
+        <form action="" method="post">
+            <div class="d-grid gap-2 col-6 mx-auto">
+                {% csrf_token %}
+                {{ form.username }}
+                {{ form.password }}
+                {% if form.errors %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger text-center">{{ error|escape }}</div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="d-grid gap-2 col-6 mx-auto mt-3">
+                    <button class="btn btn-success" type="submit">Login</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% include 'components/_footerReferences.html' %}
+</body>
+
+</html>
