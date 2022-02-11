@@ -9,6 +9,7 @@ class IndexView(ListView):
     """
     template_name = "index.html"
     queryset = Article.objects.all()
+    paginate_by = 12
 
 
 class ArticleDetails(DetailView):
