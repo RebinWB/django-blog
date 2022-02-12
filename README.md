@@ -21,7 +21,7 @@ activate virtual environment:
 cd venv\Scripts\activate
 ```
 
-if you using Widows PowerShell, type this command in your PowerShell before activate virtual environment:
+if you using Widows PowerShell, Rewrite this command in your PowerShell before activate virtual environment:
 ```
 Set-ExecutionPolicy Unrestricted -Scope Process
 ```
