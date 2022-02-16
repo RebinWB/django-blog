@@ -36,3 +36,10 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         return reverse("blog_details", kwargs={"pk": self.id, "slug": slugify(self.title)})
+
+    class Meta:
+        """
+        order articles by id --> last to first
+        """
+        ordering = ["-id"]
+
