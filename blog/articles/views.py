@@ -39,22 +39,29 @@ class ArticleDetails(DetailView):
         except Article.MultipleObjectsReturned:
             return Article.objects.filter(pk=article_id).first()
 
+
 @login_required(login_url="login")
 def create_new_article(request):
-    writer = Writer.objects.get(user=request.user)
-    form = NewArticleForm(request.POST or None, initial={"writer": writer})
+    """
+    create new article view
+    ONLY WRITERS CAN ADD ARTICLE
+    """
+    try:
+        writer = Writer.objects.get(user=request.user)
+        form = NewArticleForm(request.POST or None, initial={"writer": writer})
 
-    if form.is_valid():
-        title = form.cleaned_data["title"]
-        text = form.cleaned_data["text"]
-        cover = form.cleaned_data["cover"]
-        writer = form.cleaned_data["writer"]
-        article = Article.objects.create(title=title, text=text, cover=cover, writer=writer)
-        article.save()
-        return redirect("index")
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            text = form.cleaned_data["text"]
+            cover = form.cleaned_data["cover"]
+            writer = form.cleaned_data["writer"]
+            article = Article.objects.create(title=title, text=text, cover=cover, writer=writer)
+            article.save()
+            return redirect("index")
 
-    context = {
-        "form": form
-    }
-    return render(request, "article_create.html", context)
-
+        context = {
+            "form": form
+        }
+        return render(request, "article_create.html", context)
+    except Writer.DoesNotExist:
+        raise Http404
