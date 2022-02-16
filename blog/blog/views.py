@@ -53,3 +53,6 @@ class LoginView(UserPassesTestMixin, FormView):
         if user is not None:
             login(request=self.request, user=user)  # login user
             return redirect("index")
+
+def logout_view(request):
+    pass
