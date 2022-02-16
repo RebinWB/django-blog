@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import FormMixin, FormView
 
@@ -50,6 +51,7 @@ def create_new_article(request):
         writer = form.cleaned_data["writer"]
         article = Article.objects.create(title=title, text=text, cover=cover, writer=writer)
         article.save()
+        return redirect("index")
 
     context = {
         "form": form
