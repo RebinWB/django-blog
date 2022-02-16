@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.views.generic.edit import FormView, CreateView
 from .forms import LoginForm, RegisterForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import UserPassesTestMixin
 
 
@@ -55,4 +55,8 @@ class LoginView(UserPassesTestMixin, FormView):
             return redirect("index")
 
 def logout_view(request):
-    pass
+    """
+    logout view
+    """
+    logout(request)
+    return redirect("index")
