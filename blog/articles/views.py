@@ -51,6 +51,7 @@ def create_new_article(request):
         form = NewArticleForm(request.POST or None, initial={"writer": writer})
 
         if form.is_valid():
+            form.save()
             title = form.cleaned_data["title"]
             text = form.cleaned_data["text"]
             cover = form.cleaned_data["cover"]

@@ -6,7 +6,7 @@
 
 
 <div class="col-md-6 m-auto">
-    <form class="mt-5" method="post">
+    <form class="mt-5" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.writer.as_hidden }}
         <div class="mt-3">
