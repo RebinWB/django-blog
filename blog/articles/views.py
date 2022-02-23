@@ -48,14 +48,11 @@ def create_new_article(request):
     """
     try:
         writer = Writer.objects.get(user=request.user)
-        form = NewArticleForm(request.POST or None, initial={"writer": writer})
-
+        form = NewArticleForm(request.POST or None, request.FILES)
         if form.is_valid():
-            form.save()
             title = form.cleaned_data["title"]
             text = form.cleaned_data["text"]
             cover = form.cleaned_data["cover"]
-            writer = form.cleaned_data["writer"]
             article = Article.objects.create(title=title, text=text, cover=cover, writer=writer)
             article.save()
             return redirect("index")

@@ -14,9 +14,8 @@ class NewArticleForm(forms.ModelForm):
         "placeholder": "Article Body"
     }), label="Text")
 
-    writer = forms.HiddenInput()
 
     class Meta:
         model = Article
-        fields = ["title", "text", "cover", "writer"]
+        fields = ["title", "text", "cover"]
 
