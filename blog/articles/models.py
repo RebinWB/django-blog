@@ -20,6 +20,8 @@ class Writer(models.Model):
     def __str__(self):
         return self.user.username 
 
+    def get_absolute_url(self):
+        return reverse("writer_articles", kwargs={"pk": self.id, "username": self.user.username})
 
 class Article(models.Model):
     """

@@ -39,6 +39,12 @@ class ArticleDetails(DetailView):
         except Article.MultipleObjectsReturned:
             return Article.objects.filter(pk=article_id).first()
 
+class WriterArticlesView(ListView):
+    template_name = "index.html"
+
+    def get_queryset(self):
+        writer = Writer.objects.get(pk=self.kwargs["pk"])
+        return Article.objects.get_queryset().filter(writer=writer)
 
 @login_required(login_url="login")
 def create_new_article(request):
